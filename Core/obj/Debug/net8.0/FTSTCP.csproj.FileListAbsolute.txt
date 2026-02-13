@@ -1,0 +1,13 @@
+D:\TestProjcet\FTSTCP\Core\bin\Debug\net8.0\FTSTCP.deps.json
+D:\TestProjcet\FTSTCP\Core\bin\Debug\net8.0\FTSTCP.dll
+D:\TestProjcet\FTSTCP\Core\bin\Debug\net8.0\FTSTCP.pdb
+D:\TestProjcet\FTSTCP\Core\obj\Debug\net8.0\FTSTCP.csproj.AssemblyReference.cache
+D:\TestProjcet\FTSTCP\Core\obj\Debug\net8.0\FTSTCP.GeneratedMSBuildEditorConfig.editorconfig
+D:\TestProjcet\FTSTCP\Core\obj\Debug\net8.0\FTSTCP.AssemblyInfoInputs.cache
+D:\TestProjcet\FTSTCP\Core\obj\Debug\net8.0\FTSTCP.AssemblyInfo.cs
+D:\TestProjcet\FTSTCP\Core\obj\Debug\net8.0\FTSTCP.csproj.CoreCompileInputs.cache
+D:\TestProjcet\FTSTCP\Core\obj\Debug\net8.0\FTSTCP.sourcelink.json
+D:\TestProjcet\FTSTCP\Core\obj\Debug\net8.0\FTSTCP.dll
+D:\TestProjcet\FTSTCP\Core\obj\Debug\net8.0\refint\FTSTCP.dll
+D:\TestProjcet\FTSTCP\Core\obj\Debug\net8.0\FTSTCP.pdb
+D:\TestProjcet\FTSTCP\Core\obj\Debug\net8.0\ref\FTSTCP.dll

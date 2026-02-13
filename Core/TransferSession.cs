@@ -39,6 +39,21 @@ namespace Framework.LocalTransfer
 		public long TransferredSize => _transferredSize;
 		public float Progress => _totalSize > 0 ? (float)_transferredSize / _totalSize : 0f;
 
+		// 速度和剩余时间
+		public double SpeedMBps => Duration.TotalSeconds > 0.1 ? (TransferredSize / 1024.0 / 1024.0) / Duration.TotalSeconds : 0;
+		public TimeSpan RemainingTime
+		{
+			get
+			{
+				double speed = SpeedMBps;
+				if (speed <= 0 || _totalSize <= 0) return TimeSpan.Zero;
+				long remainingBytes = _totalSize - _transferredSize;
+				if (remainingBytes <= 0) return TimeSpan.Zero;
+				double remainingSeconds = (remainingBytes / 1024.0 / 1024.0) / speed;
+				return TimeSpan.FromSeconds(remainingSeconds);
+			}
+		}
+
 		// 时间信息
 		public DateTime StartTime { get; set; }
 		public DateTime? EndTime { get; set; }
