@@ -1,0 +1,6 @@
+D:\TestProjcet\FTSTCP\Core\obj\Debug\netstandard2.1\FTSTCP.csproj.AssemblyReference.cache
+D:\TestProjcet\FTSTCP\Core\obj\Debug\netstandard2.1\FTSTCP.GeneratedMSBuildEditorConfig.editorconfig
+D:\TestProjcet\FTSTCP\Core\obj\Debug\netstandard2.1\FTSTCP.AssemblyInfoInputs.cache
+D:\TestProjcet\FTSTCP\Core\obj\Debug\netstandard2.1\FTSTCP.AssemblyInfo.cs
+D:\TestProjcet\FTSTCP\Core\obj\Debug\netstandard2.1\FTSTCP.csproj.CoreCompileInputs.cache
+D:\TestProjcet\FTSTCP\Core\obj\Debug\netstandard2.1\FTSTCP.sourcelink.json
