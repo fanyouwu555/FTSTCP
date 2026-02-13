@@ -15,7 +15,7 @@ namespace FTSTCP.App.ViewModels
     public class MainViewModel : ViewModelBase
     {
         private TransferHost _host;
-        private TransferManager _manager;
+        private TransferClient _manager;
         private string _serverIp = "0.0.0.0";
         private int _serverPort = 8080;
         private bool _isServerRunning;
@@ -40,7 +40,7 @@ namespace FTSTCP.App.ViewModels
             };
             config.EnsureDirectories();
 
-            _manager = new TransferManager(config);
+            _manager = new TransferClient(config);
             _manager.SessionAdded += OnSessionAdded;
             _manager.SessionRemoved += (s) => AddLog($"会话已移除: {s.SessionId}");
 
@@ -148,7 +148,7 @@ namespace FTSTCP.App.ViewModels
                 if (SetProperty(ref _maxParallel, value))
                 {
                     // 动态更新配置
-                    if (_manager != null && _manager is TransferManager mgr)
+                    if (_manager != null && _manager is TransferClient mgr)
                     {
                         // 这里我们通过反射或直接修改私有字段来模拟动态调整并发，或者简单记录
                         // 核心配置目前主要在创建 Session 时读取
@@ -228,7 +228,7 @@ namespace FTSTCP.App.ViewModels
                     AddLog($"准备发送文件: {filePath} 到 {TargetIp}:{TargetPort}");
                     
                     // 应用当前配置
-                    if (_manager is TransferManager mgr)
+                    if (_manager is TransferClient mgr)
                     {
                         var config = (TransferConfig)mgr.GetType().GetField("_config", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)?.GetValue(mgr);
                         if (config != null) config.MaxParallelConnectionsPerSession = MaxParallel;
@@ -265,7 +265,7 @@ namespace FTSTCP.App.ViewModels
                     AddLog($"准备从 {TargetIp}:{TargetPort} 下载文件: {RemotePath}");
                     
                     // 应用当前配置
-                    if (_manager is TransferManager mgr)
+                    if (_manager is TransferClient mgr)
                     {
                         var config = (TransferConfig)mgr.GetType().GetField("_config", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)?.GetValue(mgr);
                         if (config != null) config.MaxParallelConnectionsPerSession = MaxParallel;

@@ -37,7 +37,7 @@ namespace Framework.LocalTransfer.Tests
             host.Start(0);
             int port = host.Port;
 
-            var manager = new TransferManager(config);
+            var manager = new TransferClient(config);
 
             // 1. 测试异常断开后的清理
             Console.WriteLine("\n[Test 1] 测试异常断开后的清理...");

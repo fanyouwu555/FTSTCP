@@ -58,7 +58,7 @@ namespace Framework.LocalTransfer.Tests
 
                 // 3. 初始化客户端管理器
                 var progress = new TestProgressCallback();
-                using var manager = new TransferManager(config, progressCallback: progress, logger: logger);
+                using var manager = new TransferClient(config, progressCallback: progress, logger: logger);
 
                 // 4. 执行上传测试 (并行)
                 Console.WriteLine("\n>>> 步骤 1: 执行并行上传测试...");

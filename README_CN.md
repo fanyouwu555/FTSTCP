@@ -53,7 +53,7 @@ Console.WriteLine($"Server started on port {port}");
 // server.Dispose();
 ```
 
-### 3.3 客户端 (TransferManager)
+### 3.3 客户端 (TransferClient)
 
 客户端用于主动发起上传或下载任务。
 
@@ -68,7 +68,7 @@ var config = new TransferConfig
 };
 
 // 2. 初始化 Manager
-var manager = new TransferManager(config);
+var manager = new TransferClient(config);
 ```
 
 **发起上传任务：**

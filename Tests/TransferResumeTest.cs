@@ -54,7 +54,7 @@ namespace Framework.LocalTransfer.Tests
                 Console.WriteLine($"[Server] 服务端已启动，监听端口: {port}");
 
                 var progress = new TestProgressCallback();
-                using var manager = new TransferManager(config, progressCallback: progress, logger: logger);
+                using var manager = new TransferClient(config, progressCallback: progress, logger: logger);
 
                 // --- 1. 上传续传测试 ---
                 Console.WriteLine("\n>>> 步骤 1: 上传续传测试...");

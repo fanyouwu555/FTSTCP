@@ -14,9 +14,9 @@ using Random = System.Random;
 namespace Framework.LocalTransfer
 {
     /// <summary>
-    /// 传输管理器 - 客户端传输控制核心
+    /// 传输客户端 - 客户端传输控制核心
     /// </summary>
-    public class TransferManager : ITransferSessionManager, IDisposable
+    public class TransferClient : ITransferSessionManager, IDisposable
     {
         #region 私有字段
 
@@ -70,7 +70,7 @@ namespace Framework.LocalTransfer
 
         #region 构造函数
 
-        public TransferManager(
+        public TransferClient(
             ITransferConfig config,
             ICompressionHandler compressionHandler = null,
             IEncryptionHandler encryptionHandler = null,
@@ -97,7 +97,7 @@ namespace Framework.LocalTransfer
                 _logger.LogError($"初始化目录失败: {ex.Message}");
             }
 
-            _logger.LogInfo("传输管理器初始化");
+            _logger.LogInfo("传输客户端初始化");
             _logger.LogInfo($"临时目录: {Path.GetFullPath(_config.TempDirectory)}");
             _logger.LogInfo($"上传目录: {Path.GetFullPath(_config.UploadDirectory)}");
             _logger.LogInfo($"下载目录: {Path.GetFullPath(_config.DownloadDirectory)}");
@@ -1579,7 +1579,7 @@ namespace Framework.LocalTransfer
             }
         }
 
-        ~TransferManager()
+        ~TransferClient()
         {
             Dispose(false);
         }
