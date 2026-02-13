@@ -24,6 +24,7 @@ namespace Framework.LocalTransfer
         private readonly ICompressionHandler _compressionHandler;
         private readonly IEncryptionHandler _encryptionHandler;
         private readonly ILogger _logger;
+        private readonly DiscoveryService _discoveryService;
 
         private TcpListener _listener;
         private CancellationTokenSource _cts;
@@ -76,6 +77,7 @@ namespace Framework.LocalTransfer
             _encryptionHandler = encryptionHandler;
             _baseDirectory = baseDirectory ?? config.UploadDirectory;
             _logger = logger ?? new ConsoleLogger();
+            _discoveryService = new DiscoveryService(_logger);
 
             // 初始化并发控制
             int maxConcurrent = _config.MaxConcurrentSessions > 0 ? _config.MaxConcurrentSessions * 2 : 20; // 服务器通常允许更多并发
@@ -122,6 +124,9 @@ namespace Framework.LocalTransfer
                 Port = ((IPEndPoint)_listener.LocalEndpoint).Port;
                 IsRunning = true;
 
+                // 启动发现服务
+                _discoveryService.StartServer(Environment.MachineName, Port);
+
                 _logger.LogInfo($"传输主机启动成功，监听端口: {Port}");
 
                 // 开始接受连接
@@ -146,6 +151,7 @@ namespace Framework.LocalTransfer
             _logger.LogInfo("正在停止传输主机...");
 
             _cts?.Cancel();
+            _discoveryService.Stop();
 
             try
             {
@@ -1724,6 +1730,7 @@ namespace Framework.LocalTransfer
             if (_disposed) return;
             _disposed = true;
             Stop();
+            _discoveryService?.Dispose();
             _cts?.Dispose();
             _concurrencySemaphore?.Dispose();
             GC.SuppressFinalize(this);

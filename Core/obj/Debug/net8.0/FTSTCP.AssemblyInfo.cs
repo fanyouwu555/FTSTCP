@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("FTSTCP")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+29872ee00c29b12410687a02df7ad9f5662795fc")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+816076afde94c50e00eb1f964cb4fb851e66e70a")]
 [assembly: System.Reflection.AssemblyProductAttribute("FTSTCP")]
 [assembly: System.Reflection.AssemblyTitleAttribute("FTSTCP")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

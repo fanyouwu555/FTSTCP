@@ -72,6 +72,28 @@
                     <StackPanel>
                         <TextBlock Text="远程客户端" FontWeight="Bold" FontSize="16" Margin="0,0,0,10" Foreground="#333"/>
                         
+                        <TextBlock Text="局域网发现" Foreground="#666" FontSize="11" Margin="0,0,0,5"/>
+                        <Grid Margin="0,0,0,15">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <ComboBox ItemsSource="{Binding DiscoveredServers}" SelectedItem="{Binding SelectedServer}" Background="#F9F9F9">
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="{Binding Name}" FontWeight="Bold"/>
+                                            <TextBlock Text=" - "/>
+                                            <TextBlock Text="{Binding IP}" Foreground="#666"/>
+                                            <TextBlock Text=":"/>
+                                            <TextBlock Text="{Binding Port}" Foreground="#666"/>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+                            </ComboBox>
+                            <Button Grid.Column="1" Content="搜索" Command="{Binding SearchServersCommand}" Margin="5,0,0,0" Padding="10,0" Background="#E5E5EA" BorderThickness="0"/>
+                        </Grid>
+
                         <TextBlock Text="目标地址" Foreground="#666" FontSize="11" Margin="0,0,0,5"/>
                         <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
                             <TextBox Text="{Binding TargetIp}" Width="120" Padding="5" VerticalContentAlignment="Center"/>

@@ -24,6 +24,9 @@ namespace FTSTCP.App.ViewModels
         private string _logText = "欢迎使用局域网并行传输工具\n";
         private int _maxParallel = 4;
         private string _remotePath;
+        private ObservableCollection<ServerInfo> _discoveredServers = new ObservableCollection<ServerInfo>();
+        private ServerInfo _selectedServer;
+        private readonly DiscoveryService _discoveryService;
 
         public MainViewModel()
         {
@@ -41,6 +44,9 @@ namespace FTSTCP.App.ViewModels
             _manager.SessionAdded += OnSessionAdded;
             _manager.SessionRemoved += (s) => AddLog($"会话已移除: {s.SessionId}");
 
+            _discoveryService = new DiscoveryService();
+            _discoveryService.ServerDiscovered += OnServerDiscovered;
+
             Transfers = new ObservableCollection<TransferItemViewModel>();
             
             StartServerCommand = new RelayCommand(StartServer, () => !IsServerRunning);
@@ -48,6 +54,7 @@ namespace FTSTCP.App.ViewModels
             SendFileCommand = new RelayCommand(async () => await SendFileAsync());
             DownloadFileCommand = new RelayCommand(async () => await DownloadFileAsync());
             ClearCompletedCommand = new RelayCommand(ClearCompleted);
+            SearchServersCommand = new RelayCommand(async () => await SearchServersAsync());
 
             _serverIp = GetLocalIPAddress();
 
@@ -113,6 +120,26 @@ namespace FTSTCP.App.ViewModels
             set => SetProperty(ref _remotePath, value);
         }
 
+        public ObservableCollection<ServerInfo> DiscoveredServers
+        {
+            get => _discoveredServers;
+            set => SetProperty(ref _discoveredServers, value);
+        }
+
+        public ServerInfo SelectedServer
+        {
+            get => _selectedServer;
+            set
+            {
+                if (SetProperty(ref _selectedServer, value) && value != null)
+                {
+                    TargetIp = value.IP;
+                    TargetPort = value.Port;
+                    AddLog($"已选择服务器: {value.Name} ({value.IP}:{value.Port})");
+                }
+            }
+        }
+
         public int MaxParallel
         {
             get => _maxParallel;
@@ -142,6 +169,7 @@ namespace FTSTCP.App.ViewModels
         public ICommand SendFileCommand { get; }
         public ICommand DownloadFileCommand { get; }
         public ICommand ClearCompletedCommand { get; }
+        public ICommand SearchServersCommand { get; }
 
         private void StartServer()
         {
@@ -251,6 +279,32 @@ namespace FTSTCP.App.ViewModels
                     AddLog($"创建下载失败: {ex.Message}");
                 }
             }
+        }
+
+        private async Task SearchServersAsync()
+        {
+            DiscoveredServers.Clear();
+            AddLog("正在搜索局域网中的服务器...");
+            await _discoveryService.SearchAsync();
+            if (DiscoveredServers.Count == 0)
+            {
+                AddLog("未发现可用的服务器");
+            }
+            else
+            {
+                AddLog($"搜索完成，发现 {DiscoveredServers.Count} 个服务器");
+            }
+        }
+
+        private void OnServerDiscovered(ServerInfo info)
+        {
+            Application.Current.Dispatcher.Invoke(() =>
+            {
+                if (!DiscoveredServers.Any(s => s.IP == info.IP && s.Port == info.Port))
+                {
+                    DiscoveredServers.Add(info);
+                }
+            });
         }
 
         private void OnSessionAdded(TransferSession session)
