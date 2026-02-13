@@ -9,7 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\FTSTCP.csproj" />
+    <ProjectReference Include="..\Core\FTSTCP.csproj" />
   </ItemGroup>
 
   <ItemGroup>
